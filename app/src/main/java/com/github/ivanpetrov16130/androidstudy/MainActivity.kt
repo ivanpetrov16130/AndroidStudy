@@ -1,86 +1,95 @@
 package com.github.ivanpetrov16130.androidstudy
 
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import org.jetbrains.anko.*
+import org.jetbrains.anko.sdk21.coroutines.*
+
+class MainActivityLayout: AnkoComponent<MainActivity> {
+
+
+    override fun createView(ui: AnkoContext<MainActivity>) = with(ui) {
+        scrollView { verticalLayout {
+            val closeButton = imageButton(R.drawable.expand_arrow) {
+                onClick { Log.d("CLOSE TAP", "CLOSE TAP") }// print("Close button tap") }
+            }.lparams(width = 45, height = 45) {
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(16)
+            }
+            val coverImageView = imageView(R.drawable.der_fuhrer).lparams(width = wrapContent, height = wrapContent) {
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalGravity = Gravity.TOP
+            }
+            val songProgress = seekBar().lparams {
+                verticalMargin = dip(8)
+            }
+            val songTitle = textView("Сalling for signatures 32hours compilation") {
+                textSize = 19f
+            }.lparams{
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(16)
+x            }
+            val artistName = textView("Navalny Alexei"){
+                textSize = 17f
+            }.lparams{
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(8)
+
+            }
+            linearLayout {
+                val previousTrackButton = imageButton(R.drawable.prev_icon) {
+                    onClick { print("Previous track button tap") }
+                }
+                val pauseButton = imageButton(R.drawable.pause_icon) {
+                    onClick { print("Pause button tap") }
+                }
+                val nextButton = imageButton(R.drawable.next_icon) {
+                    onClick { print("Next track button tap") }
+                }
+            }.lparams{
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(16)
+
+            }
+            linearLayout {
+                val volumeMinimizerIcon = imageView()
+                val volumeRegulator = seekBar().lparams {
+                    verticalMargin = dip(8)
+                }
+                val volumeMaximizerIcon = imageView()
+            }.lparams{
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(16)
+            }
+            linearLayout {
+                val addButton = button("Add") {
+                    onClick { print("Add button tap") }
+                }
+                val someButton = button("Some") {
+                    onClick { print("Some button tap") }
+                }
+                val moreButton = button("More") {
+                    onClick { print("More button tap") }
+                }
+            }.lparams{
+                horizontalGravity = Gravity.CENTER_HORIZONTAL
+                verticalMargin = dip(24)
+
+            }
+        } }
+
+    }
+}
 
 
 class MainActivity : AppCompatActivity() {
 
-    private fun mainForClasses() {
-
-        val inlineAlert = object: Alertable() {
-
-            override var shouldDisappearOnTap: Boolean = true
-
-            public override fun show() { println("Inline alert did appeared") }
-
-            public override fun hide() { println("Inline alert did disappeared") }
-
-            protected override fun removeFromViewHierarchy() { println("Inline alert did removed from view hierarchy") }
-
-        }
-
-        println("Inline alert log")
-        println(inlineAlert.isShowing)
-        println(inlineAlert.alertMessage)
-        println(inlineAlert.shouldDisappearOnTap)
-        inlineAlert.show()
-        inlineAlert.hide()
-
-
-
-        val popupAlert = PopupNotification()
-
-        println("Popup alert log")
-        println(PopupNotification.Companion.reuseIdentifier)
-        println(popupAlert.isShowing)
-        println(popupAlert.alertMessage)
-        println(popupAlert.closeMessage)
-        println(popupAlert.shouldDisappearOnTap)
-        popupAlert.show()
-        popupAlert.hide()
-
-
-
-        val cancelablePopupAlert = CancelablePopupNotification()
-        println("Cancelable popup alert log")
-        println(cancelablePopupAlert.isShowing)
-        println(cancelablePopupAlert.alertMessage)
-        println(cancelablePopupAlert.closeMessage)
-        println(cancelablePopupAlert.cancelMessage)
-        println(cancelablePopupAlert.shouldDisappearOnTap)
-        println(cancelablePopupAlert.cancelButtonColor)
-
-        cancelablePopupAlert.show()
-        cancelablePopupAlert.cancel()
-
-    }
-
-    private fun mainForInterfaces() {
-
-        val coder = Coder()
-        val decoder = Decoder()
-
-
-        val jsonRepresentation = JsonRepresentation()
-        jsonRepresentation.decodeWith(decoder)
-        jsonRepresentation.encodeWith(coder)
-
-
-        val userProperty = UserProperty()
-        userProperty.encodeWith(coder)
-        userProperty.dispose()
-
-        val token = Token()
-        token.decodeWith(decoder)
-        token.dispose()
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mainForClasses()
-        mainForInterfaces()
+        MainActivityLayout().setContentView(this)
+
     }
 }

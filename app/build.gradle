@@ -30,4 +30,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    // Anko Layouts
+    compile "org.jetbrains.anko:anko-sdk21:+"
+    compile "org.jetbrains.anko:anko-appcompat-v7:+"
+
+    // Coroutine listeners for Anko Layouts
+    compile "org.jetbrains.anko:anko-sdk21-coroutines:+"
+    compile "org.jetbrains.anko:anko-appcompat-v7-coroutines:+"
 }
